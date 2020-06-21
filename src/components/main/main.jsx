@@ -3,8 +3,7 @@ import Card from "../card-of-rent/card-of-rent.jsx";
 import PropTypes from "prop-types";
 
 const Main = (props) => {
-  // eslint-disable-next-line react/prop-types
-  const {variantsOfRent, namesOfRent} = props;
+  const {variantsOfRent, namesOfRent, accommodationClick} = props;
   return <div className="page page--gray page--main">
     <header className="header">
       <div className="container">
@@ -90,6 +89,7 @@ const Main = (props) => {
             <div className="cities__places-list places__list tabs__content">
               {namesOfRent.map((name, index) => {
                 return <Card
+                  accommodationClick={accommodationClick}
                   key={`${index}-${name}`}
                   name={name}/>;
               })}
@@ -105,6 +105,7 @@ const Main = (props) => {
 };
 
 Main.propTypes = {
+  accommodationClick: PropTypes.func.isRequired,
   namesOfRent: PropTypes.arrayOf(PropTypes.string).isRequired,
   variantsOfRent: PropTypes.number.isRequired
 };
