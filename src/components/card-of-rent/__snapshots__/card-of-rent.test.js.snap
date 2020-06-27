@@ -3,12 +3,13 @@
 exports[`Render Card 1`] = `
 <article
   className="cities__place-card place-card"
+  onMouseEnter={[Function]}
 >
   <div
     className="place-card__mark"
   >
     <span>
-      Premium
+      Standart
     </span>
   </div>
   <div
@@ -21,7 +22,7 @@ exports[`Render Card 1`] = `
         alt="Place image"
         className="place-card__image"
         height="200"
-        src="img/apartment-01.jpg"
+        src="img/apartment-02.jpg"
         width="260"
       />
     </a>
@@ -38,7 +39,8 @@ exports[`Render Card 1`] = `
         <b
           className="place-card__price-value"
         >
-          €120
+          €
+          189
         </b>
         <span
           className="place-card__price-text"
@@ -75,7 +77,7 @@ exports[`Render Card 1`] = `
         <span
           className="visually-hidden"
         >
-          Rating
+          3
         </span>
       </div>
     </div>
@@ -86,13 +88,13 @@ exports[`Render Card 1`] = `
         href="#"
         onClick={[Function]}
       >
-        Some name for card
+        Wood and stone place
       </a>
     </h2>
     <p
       className="place-card__type"
     >
-      Apartment
+      Standart
     </p>
   </div>
 </article>
