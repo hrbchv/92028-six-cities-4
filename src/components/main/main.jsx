@@ -1,6 +1,6 @@
-import React from "react";
 import CardsList from "../cards-list/cards-list.jsx";
 import PropTypes from "prop-types";
+import React from "react";
 
 const Main = (props) => {
   const {variantsOfRent, accommodationClick} = props;

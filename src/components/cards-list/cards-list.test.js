@@ -1,7 +1,7 @@
-import renderer from "react-test-renderer";
 import React from "react";
+import renderer from "react-test-renderer";
 
-import App from "./app.jsx";
+import CardsList from "./cards-list.jsx";
 
 const mockProps = {
   variantsOfRent: [{
@@ -12,14 +12,16 @@ const mockProps = {
     imageUrl: `img/apartment-02.jpg`,
     type: `Standart`,
     isBookMark: false
-  }]
+  }],
+  accommodationClick: () => {
+  },
 };
 
-it(`Render App`, () => {
+it(`Render Main`, () => {
   const tree = renderer
-    .create(<App
-      variantsOfRent={mockProps.variantsOfRent}
-    />)
+    .create(<CardsList
+      accommodationClick={mockProps.accommodationClick}
+      variantsOfRent={mockProps.variantsOfRent}/>)
     .toJSON();
 
   expect(tree).toMatchSnapshot();
