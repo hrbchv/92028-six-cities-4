@@ -4,17 +4,24 @@ import renderer from "react-test-renderer";
 import Main from "./main.jsx";
 
 const mockProps = {
-  variantsOfRent: 341,
-  accommodationClick: () => {},
-  namesOfRent: [`Some other hotel name`, `Some other hotel name`, `Other name for appartament`]
+  variantsOfRent: [{
+    name: `Wood and stone place`,
+    kind: `Room`,
+    rating: 3,
+    cost: 189,
+    imageUrl: `img/apartment-02.jpg`,
+    type: `Standart`,
+    isBookMark: false
+  }],
+  accommodationClick: () => {
+  },
 };
 
 it(`Render Main`, () => {
   const tree = renderer
     .create(<Main
       accommodationClick={mockProps.accommodationClick}
-      variantsOfRent={mockProps.variantsOfRent}
-      namesOfRent={mockProps.namesOfRent}/>)
+      variantsOfRent={mockProps.variantsOfRent}/>)
     .toJSON();
 
   expect(tree).toMatchSnapshot();

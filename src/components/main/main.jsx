@@ -1,9 +1,9 @@
-import React from "react";
-import Card from "../card-of-rent/card-of-rent.jsx";
+import CardsList from "../cards-list/cards-list.jsx";
 import PropTypes from "prop-types";
+import React from "react";
 
 const Main = (props) => {
-  const {variantsOfRent, namesOfRent, accommodationClick} = props;
+  const {variantsOfRent, accommodationClick} = props;
   return <div className="page page--gray page--main">
     <header className="header">
       <div className="container">
@@ -70,7 +70,7 @@ const Main = (props) => {
         <div className="cities__places-container container">
           <section className="cities__places places">
             <h2 className="visually-hidden">Places</h2>
-            <b className="places__found">{variantsOfRent} places to stay in Amsterdam</b>
+            <b className="places__found">{variantsOfRent.length} places to stay in Amsterdam</b>
             <form className="places__sorting" action="#" method="get">
               <span className="places__sorting-caption">Sort by</span>
               <span className="places__sorting-type" tabIndex="0">
@@ -79,21 +79,16 @@ const Main = (props) => {
                   <use xlinkHref="#icon-arrow-select"></use>
                 </svg>
               </span>
-              <ul className="places__options places__options--custom places__options--opened">
-                <li className="places__option places__option--active" tabIndex="0">Popular</li>
+              <ul className="places__options places__options--custom">
+                <li className="places__option" tabIndex="0">Popular</li>
                 <li className="places__option" tabIndex="0">Price: low to high</li>
                 <li className="places__option" tabIndex="0">Price: high to low</li>
                 <li className="places__option" tabIndex="0">Top rated first</li>
               </ul>
             </form>
-            <div className="cities__places-list places__list tabs__content">
-              {namesOfRent.map((name, index) => {
-                return <Card
-                  accommodationClick={accommodationClick}
-                  key={`${index}-${name}`}
-                  name={name}/>;
-              })}
-            </div>
+            <CardsList
+              accommodationClick={accommodationClick}
+              variantsOfRent={variantsOfRent}/>
           </section>
           <div className="cities__right-section">
             <section className="cities__map map"></section>
@@ -106,8 +101,15 @@ const Main = (props) => {
 
 Main.propTypes = {
   accommodationClick: PropTypes.func.isRequired,
-  namesOfRent: PropTypes.arrayOf(PropTypes.string).isRequired,
-  variantsOfRent: PropTypes.number.isRequired
+  variantsOfRent: PropTypes.arrayOf(PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    kind: PropTypes.string.isRequired,
+    rating: PropTypes.number.isRequired,
+    cost: PropTypes.number.isRequired,
+    imageUrl: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired,
+    isBookMark: PropTypes.bool.isRequired
+  }).isRequired).isRequired
 };
 
 export default Main;
