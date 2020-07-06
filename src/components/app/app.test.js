@@ -1,7 +1,7 @@
 import renderer from "react-test-renderer";
 import React from "react";
-
 import App from "./app.jsx";
+jest.mock(`../map/map.jsx`, () => `Map`);
 
 const mockProps = {
   variantsOfRent: [{
@@ -18,8 +18,9 @@ const mockProps = {
 it(`Render App`, () => {
   const tree = renderer
     .create(<App
-      variantsOfRent={mockProps.variantsOfRent}
-    />)
+      variantsOfRent={mockProps.variantsOfRent}/>, {
+      createNodeMock: () => document.createElement(`div`)
+    })
     .toJSON();
 
   expect(tree).toMatchSnapshot();

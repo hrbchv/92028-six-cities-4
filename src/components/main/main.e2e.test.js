@@ -3,6 +3,8 @@ import {configure, mount} from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 import Main from "./main.jsx";
 
+jest.mock(`../map/map.jsx`, () => `Map`);
+
 configure({adapter: new Adapter()});
 
 it(`When user click on titile of card - callback returns`, () => {
@@ -22,8 +24,9 @@ it(`When user click on titile of card - callback returns`, () => {
 
   const mainComponent = mount(<Main
     variantsOfRent={mockProps.variantsOfRent}
-    accommodationClick={mockProps.accommodationClick}
-  />);
+    accommodationClick={mockProps.accommodationClick}/>, {
+    createNodeMock: () => document.createElement(`div`)
+  });
 
   const preventClick = jest.fn();
 

@@ -328,7 +328,23 @@ exports[`Render App 1`] = `
         >
           <section
             className="cities__map map"
-          />
+          >
+            <Map
+              variantsOfRent={
+                Array [
+                  Object {
+                    "cost": 189,
+                    "imageUrl": "img/apartment-02.jpg",
+                    "isBookMark": false,
+                    "kind": "Room",
+                    "name": "Wood and stone place",
+                    "rating": 3,
+                    "type": "Standart",
+                  },
+                ]
+              }
+            />
+          </section>
         </div>
       </div>
     </div>
