@@ -6,7 +6,8 @@ export default [
     cost: 120,
     imageUrl: `img/apartment-01.jpg`,
     type: `Premium`,
-    isBookMark: false
+    isBookMark: false,
+    coordinates: [52.3909553943508, 4.85309666406198]
   },
   {
     name: `Wood and stone place`,
@@ -15,7 +16,8 @@ export default [
     cost: 189,
     imageUrl: `img/apartment-02.jpg`,
     type: `Premium`,
-    isBookMark: false
+    isBookMark: false,
+    coordinates: [52.369553943508, 4.85309666406198]
   },
   {
     name: `Canal View Prinsengracht`,
@@ -24,7 +26,8 @@ export default [
     cost: 250,
     imageUrl: `img/apartment-03.jpg`,
     type: `Premium`,
-    isBookMark: false
+    isBookMark: false,
+    coordinates: [52.3909553943508, 4.929309666406198]
   },
   {
     name: `Village on hill near Dikanka`,
@@ -33,6 +36,7 @@ export default [
     cost: 99,
     imageUrl: `img/room.jpg`,
     type: `Standart`,
-    isBookMark: false
+    isBookMark: false,
+    coordinates: [52.3809553943508, 4.939309666406198]
   }
 ];
