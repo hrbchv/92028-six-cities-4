@@ -1,6 +1,7 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import Main from "./main.jsx";
+import Map from "./map.jsx";
+
 jest.mock(`../map/map.jsx`, () => `Map`);
 
 const mockProps = {
@@ -11,16 +12,14 @@ const mockProps = {
     cost: 189,
     imageUrl: `img/apartment-02.jpg`,
     type: `Standart`,
-    isBookMark: false
-  }],
-  accommodationClick: () => {
-  },
+    isBookMark: false,
+    coordinates: [123441, 3423423]
+  }]
 };
 
-it(`Render Main`, () => {
+it(`Render Map`, () => {
   const tree = renderer
-    .create(<Main
-      accommodationClick={mockProps.accommodationClick}
+    .create(<Map
       variantsOfRent={mockProps.variantsOfRent}/>, {
       createNodeMock: () => document.createElement(`div`)
     })
