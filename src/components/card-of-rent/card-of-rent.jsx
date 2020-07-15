@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import React from "react";
 
 const Card = (props) => {
-  const {cardValues, accommodationClick, handlerHover, index} = props;
+  const {cardValues, handlerHover, index} = props;
 
   return <article
     className="cities__place-card place-card"
@@ -38,7 +38,6 @@ const Card = (props) => {
       </div>
       <h2 className="place-card__name">
         <a
-          onClick={accommodationClick}
           href="#">{cardValues.name}</a>
       </h2>
       <p className="place-card__type">{cardValues.type}</p>
@@ -47,7 +46,6 @@ const Card = (props) => {
 };
 
 Card.propTypes = {
-  accommodationClick: PropTypes.func.isRequired,
   handlerHover: PropTypes.func.isRequired,
   index: PropTypes.number.isRequired,
   cardValues: PropTypes.shape({

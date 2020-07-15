@@ -16,6 +16,10 @@ class Map extends PureComponent {
     this._renderMarkes();
   }
 
+  componentDidUpdate() {
+    this._renderMarkes();
+  }
+
   _initMap() {
     this._map = leaflet.map(this._mapRef.current, mapSettings);
     this._map.setView(mapSettings.center, mapSettings.zoom);
@@ -27,10 +31,15 @@ class Map extends PureComponent {
   _renderMarkes() {
     const icon = leaflet.icon(iconSettings);
     const {variantsOfRent} = this.props;
+    if (this._markers.length) {
+      this._markers.forEach((marker) => marker.remove());
+      this._markers = [];
+    }
     variantsOfRent.forEach((item) => {
-      leaflet
+      const marker = leaflet
         .marker(item.coordinates, {icon})
         .addTo(this._map);
+      this._markers.push(marker);
     });
   }
 

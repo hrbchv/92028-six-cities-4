@@ -1,24 +1,24 @@
 import renderer from "react-test-renderer";
 import React from "react";
-import App from "./app.jsx";
+import {App} from "./app.jsx";
+import {Provider} from "react-redux";
+import mockProps from "../../mocks/mock-for-test";
+import configureStore from "redux-mock-store";
+
 jest.mock(`../map/map.jsx`, () => `Map`);
 
-const mockProps = {
-  variantsOfRent: [{
-    name: `Wood and stone place`,
-    kind: `Room`,
-    rating: 3,
-    cost: 189,
-    imageUrl: `img/apartment-02.jpg`,
-    type: `Standart`,
-    isBookMark: false
-  }]
-};
+const mockStore = configureStore([]);
+
+const store = mockStore({
+  currentCity: mockProps.currentCity
+});
 
 it(`Render App`, () => {
   const tree = renderer
-    .create(<App
-      variantsOfRent={mockProps.variantsOfRent}/>, {
+    .create(<Provider store={store}>
+      <App
+        variantsOfRent={mockProps.variantsOfRent}
+        setDefaultCity={mockProps.jestFn}/></Provider>, {
       createNodeMock: () => document.createElement(`div`)
     })
     .toJSON();

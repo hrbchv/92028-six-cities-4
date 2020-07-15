@@ -2,9 +2,18 @@ import CardsList from "../cards-list/cards-list.jsx";
 import PropTypes from "prop-types";
 import React from "react";
 import Map from "../map/map.jsx";
+import CitiesList from "../cities-list/cities-list.jsx";
+import {getFilteredCollection, getUnicCollection} from "../../utils/get-collection";
+import {connect} from "react-redux";
+import ActionCreator from "../../reducer/action-creator";
 
-const Main = (props) => {
-  const {variantsOfRent, accommodationClick} = props;
+export const Main = (props) => {
+  const {variantsOfRent, currentCity, onCityNameClick} = props;
+  const keyName = `city`;
+  const cities = getUnicCollection(variantsOfRent, keyName);
+  const filteredVariantsOfRent = getFilteredCollection(variantsOfRent, keyName, currentCity);
+  const isPluralVariantsOfRent = filteredVariantsOfRent.length !== 1;
+
   return <div className="page page--gray page--main">
     <header className="header">
       <div className="container">
@@ -31,47 +40,16 @@ const Main = (props) => {
 
     <main className="page__main page__main--index">
       <h1 className="visually-hidden">Cities</h1>
-      <div className="tabs">
-        <section className="locations container">
-          <ul className="locations__list tabs__list">
-            <li className="locations__item">
-              <a className="locations__item-link tabs__item" href="#">
-                <span>Paris</span>
-              </a>
-            </li>
-            <li className="locations__item">
-              <a className="locations__item-link tabs__item" href="#">
-                <span>Cologne</span>
-              </a>
-            </li>
-            <li className="locations__item">
-              <a className="locations__item-link tabs__item" href="#">
-                <span>Brussels</span>
-              </a>
-            </li>
-            <li className="locations__item">
-              <a className="locations__item-link tabs__item tabs__item--active">
-                <span>Amsterdam</span>
-              </a>
-            </li>
-            <li className="locations__item">
-              <a className="locations__item-link tabs__item" href="#">
-                <span>Hamburg</span>
-              </a>
-            </li>
-            <li className="locations__item">
-              <a className="locations__item-link tabs__item" href="#">
-                <span>Dusseldorf</span>
-              </a>
-            </li>
-          </ul>
-        </section>
-      </div>
+      <CitiesList
+        currentCity={currentCity}
+        onCityNameClick={onCityNameClick}
+        cities={cities}/>
       <div className="cities">
         <div className="cities__places-container container">
           <section className="cities__places places">
             <h2 className="visually-hidden">Places</h2>
-            <b className="places__found">{variantsOfRent.length} places to stay in Amsterdam</b>
+            <b className="places__found">{filteredVariantsOfRent.length} plac{isPluralVariantsOfRent ? `es` : `e`} to
+              stay in {currentCity}</b>
             <form className="places__sorting" action="#" method="get">
               <span className="places__sorting-caption">Sort by</span>
               <span className="places__sorting-type" tabIndex="0">
@@ -87,13 +65,13 @@ const Main = (props) => {
                 <li className="places__option" tabIndex="0">Top rated first</li>
               </ul>
             </form>
-            <CardsList
-              accommodationClick={accommodationClick}
-              variantsOfRent={variantsOfRent}/>
+            {filteredVariantsOfRent ? <CardsList
+              variantsOfRent={filteredVariantsOfRent}/> : <div>No places to stay available</div>}
           </section>
           <div className="cities__right-section">
             <section className="cities__map map">
-              <Map variantsOfRent={variantsOfRent}/>
+              <Map
+                variantsOfRent={filteredVariantsOfRent}/>
             </section>
           </div>
         </div>
@@ -103,7 +81,6 @@ const Main = (props) => {
 };
 
 Main.propTypes = {
-  accommodationClick: PropTypes.func.isRequired,
   variantsOfRent: PropTypes.arrayOf(PropTypes.shape({
     name: PropTypes.string.isRequired,
     kind: PropTypes.string.isRequired,
@@ -111,8 +88,29 @@ Main.propTypes = {
     cost: PropTypes.number.isRequired,
     imageUrl: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
+    city: PropTypes.string.isRequired,
     isBookMark: PropTypes.bool.isRequired
-  }).isRequired).isRequired
+  }).isRequired).isRequired,
+  currentCity: PropTypes.string.isRequired,
+  onCityNameClick: PropTypes.func.isRequired,
 };
 
-export default Main;
+const mapStateToProps = (state) => {
+  return {
+    currentCity: state.currentCity
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onCityNameClick: (e) => {
+      e.preventDefault();
+      dispatch(ActionCreator.setCurrentCity(e.currentTarget.textContent));
+    }
+  };
+};
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Main);

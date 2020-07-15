@@ -18,12 +18,11 @@ class CardsList extends PureComponent {
   }
 
   render() {
-    const {variantsOfRent, accommodationClick} = this.props;
+    const {variantsOfRent} = this.props;
 
     return <div className="cities__places-list places__list tabs__content">
       {variantsOfRent.map((cardValues, index) => {
         return <Card
-          accommodationClick={accommodationClick}
           handlerHover={this.handlerHover}
           index={index}
           key={`${index}-${cardValues.name}`}
@@ -34,7 +33,6 @@ class CardsList extends PureComponent {
 }
 
 CardsList.propTypes = {
-  accommodationClick: PropTypes.func.isRequired,
   variantsOfRent: PropTypes.arrayOf(PropTypes.shape({
     name: PropTypes.string.isRequired,
     kind: PropTypes.string.isRequired,

@@ -5,6 +5,7 @@ exports[`Render Map 1`] = `
   variantsOfRent={
     Array [
       Object {
+        "city": "Amsterdam",
         "coordinates": Array [
           123441,
           3423423,
